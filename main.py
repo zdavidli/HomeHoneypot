@@ -7,10 +7,12 @@ import macaddr
 import Queue
 import time
 import push
+from collections import OrderedDict
 
 MAX_QUEUE = 1<<14
 
 LOGFILE = 'e.log' # lol
+
 
 def main():
     events = Queue.Queue(MAX_QUEUE)
@@ -26,12 +28,20 @@ def main():
     btthread.start()
     webthread.start()
 
+    seen = OrderedDict()
+
     try:
         while True:
             interface, mac, when = events.get()
             name = '"%s"'%macaddr.identify(mac)
             notes = "Occurred %s" % time.ctime(when)
-            push.note(interface, name, mac, notes)
+            if mac in seen:
+                del seen[mac]
+            else:
+                push.note(interface, name, mac, notes)
+            if len(seen) >= 100:
+                seen.popitem()
+            seen[mac] = when
     finally:
         macaddr.save_cache()
 
