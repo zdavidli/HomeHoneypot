@@ -7,10 +7,10 @@ import Queue
 import time
 
 class Sniffer(threading.Thread):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, queue, *args, **kwargs):
         threading.Thread.__init__(self, *args, **kwargs)
+        self.__queue = queue
         sp.Popen(['hostapd', '/etc/hostapd/hostapd.conf'])
-        # init stuff here
 
     def run(self, queue):
         def record(packet, ignore = set()):

@@ -28,13 +28,13 @@ from scapy.all import *
 #         if len(data) == 18+8:
 #             rawaddr = data[8+4:8+4+6]
 #         else:
-
             
 class Sniffer(threading.Thread):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, queue, *args, **kwargs):
         threading.Thread.__init__(self, *args, **kwargs)
+        self.__queue = queue
 
-    def run(self, queue):
+    def run(self):
         def record(packet, ignore = set()):
-            queue.put(("Bluetooth", packet.src, time.time()))
+            self.__queue.put(("Bluetooth", packet.src, time.time()))
         sniff(prn=record)
