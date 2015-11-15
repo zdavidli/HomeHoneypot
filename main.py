@@ -13,9 +13,9 @@ LOGFILE = 'e.log' # lol
 
 def main():
     events = Queue.Queue(MAX_QUEUE)
-    wifithread = wifisniffer.Sniffer(events)
+    wifithread = wifisniffer.Sniffer(args=(events,))
     wifithread.daemon = True
-    btthread = btsniffer.Sniffer(events)
+    btthread = btsniffer.Sniffer(args=(events,))
     btthread.daemon = True
     webthread = web.HoneyServer()
     webthread.daemon = True
