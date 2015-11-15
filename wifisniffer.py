@@ -12,8 +12,9 @@ class Sniffer(threading.Thread):
         # init stuff here
 
     def run(self, queue):
-        pass
-
+        def p(packet, ignore = set()):
+            queue.put(("wifi", packet.src))
+        sniff(prn=p)
 
 
 def print_summary(pkt):
