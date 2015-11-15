@@ -2,6 +2,11 @@ import time
 import pcap
 import struct
 
+import threading
+import subprocess as sp
+import Queue
+from scapy.all import *
+
 def parse(tup):
     time, data = tup
 
@@ -26,4 +31,12 @@ class BtPacket(object):
             rawaddr = data[8+4:8+4+6]
         else:
             
+class Sniffer(threading.Thread):
+    def __init(self, *args, **kwargs):
+        threading.Thread.__init__(self, *args, **kwargs)
+        self.sp.Popen(['bluetoothctl'])
 
+    def run(self, queue)
+        def p(packet, ignore = set()):
+            queue.put(("Bluetooth", packet.src))
+        sniff(prn = p)
