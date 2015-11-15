@@ -13,6 +13,7 @@ class Sniffer(threading.Thread):
 
     def run(self, queue):
         pass
+        
 
 
 
