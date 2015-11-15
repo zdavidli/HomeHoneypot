@@ -1,2 +1,9 @@
-{"phone": "", "last": "b", "email": "d", "first": "a"}
-{"phone": "", "last": "b", "email": "d", "first": "a"}
+{
+  "known": [],
+  "global": {
+    "Phone": "",
+    "Name": "",
+    "Email": ""
+  },
+  "recents": []
+}
