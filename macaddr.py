@@ -1,10 +1,12 @@
 from __future__ import print_function
 import string
 import sys
+import json
 
 
 CACHE_FILE = 'macs.cache'
 LOOKUP_URL = "http://api.macvendors.com/%s"
+CACHE = {}
 
 
 def identify(macaddr):
@@ -26,3 +28,12 @@ def identify(macaddr):
                 return ''
             raise
         f.write(' '.join([macaddr, desc]))
+
+def init_cache():
+    global CACHE
+    with open(CACHE_FILE, 'a+') as f:
+        CACHE = json.load(f)
+
+def save_cache():
+    with open(CACHE_FILE, 'w') as f:
+        json.dump(CACHE, f)
