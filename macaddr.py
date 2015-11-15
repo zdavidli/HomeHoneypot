@@ -31,8 +31,11 @@ def identify(macaddr):
 
 def init_cache():
     global CACHE
-    with open(CACHE_FILE, 'a+') as f:
-        CACHE = json.load(f)
+    try:
+        with open(CACHE_FILE, 'a+') as f:
+            CACHE = json.load(f)
+    except ValueError:
+        CACHE = {}
 
 def save_cache():
     with open(CACHE_FILE, 'w') as f:
