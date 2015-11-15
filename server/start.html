@@ -27,7 +27,7 @@
             #headerbar{
             position: float;
             background-color: #000000;
-            height: 40px;
+            height: 80px;
             width: 100%%;
             vertical-align: middle;
             text-align: center;
@@ -42,6 +42,10 @@
             margin-bottom:auto;
             vertical-align: middle;
             }
+            #submit {
+            height: 3em;
+            font-size: 90%%;
+            }
         </style>
         <style type="text/css">
             .container {
@@ -51,6 +55,9 @@
             .container input {
                 width: 100%%;
                 clear: both;
+            }
+            .bigbutton {
+                height: 4%%;
             }
         </style>
         <style>
@@ -71,7 +78,7 @@
     <!-- <script src="popup.js"></script> -->
     </head>
     <body>
-        <div id="headerbar"><span><img src="honeypot.png" width="16.5%"></span></div>
+        <div id="headerbar"><div style="height:20px; "></div><span><img src="/images/honeypot.png" width="16.5%%"></span></div>
         <div style="height:30px; "></div>
             <div class="container", style="width:100%%">
                 <div class="boxed", style="float:left; width:47%%">
@@ -97,7 +104,7 @@
                          <div style="height:10px; "></div>
                          <input type="text" name="Email" style="font-size:14pt;height:35px;width:600px;" value="%(Email)s"><br />
                          <div style="height:20px; "></div>
-                         <input type="submit" value="Update Info" style="background-color:#ffd20c">
+                         <input type="submit" value="Update Info" style="background-color:#ffd20c" id="submit">
                     </form>
                 </div>
                 <div class="boxed", style="float:right; width:47%%">
