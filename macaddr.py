@@ -4,7 +4,7 @@ import sys
 
 
 CACHE_FILE = 'macs.cache'
-LOOKUP_URL = "http://api.macvendors.com/"
+LOOKUP_URL = "http://api.macvendors.com/%s"
 
 
 def identify(macaddr):
@@ -19,13 +19,10 @@ def identify(macaddr):
             if macaddr == mac.lower():
                 return desc
         try:
-            with urllib2.urlopen(LOOKUP_URL+macaddr) as u:
+            with urllib2.urlopen(LOOKUP_URL%macaddr) as u:
                 desc = u.readline()
         except urllib2.HTTPError as e:
             if e.code == 404:
                 return ''
             raise
         f.write(' '.join([macaddr, desc]))
-
-
-

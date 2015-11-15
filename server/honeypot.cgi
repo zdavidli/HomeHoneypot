@@ -15,47 +15,55 @@ for f in GLOBALFIELDS:
     DEFAULT_SETTINGS['global'][f] = ''
 DEFAULT = "<i>???</i>"
 
+#
+# Update settings
+#
+
 try:
     with open(SETTINGS_FILE) as f:
         settings = json.load(f)
 except (IOError, ValueError):
     settings = DEFAULT_SETTINGS
 
+changed = False
+def default(f):
+    global changed
+    changed = True
+    return settings.get(field, '')
+
+form = cgi.FieldStorage()
+for field in GLOBALFIELDS:
+    settings['global'][field] = form.getfirst(field, default(field))
+
+with open(SETTINGS_FILE, "w") as f:
+    json.dump(settings, f, separators=(',', ': '), indent=2)
+
+#
+# Render page with new settings
+#
 
 with open('start.html') as f:
-    htmlFormat1 = f.read()
+    html = f.read()
+html %= settings['global']
 
 def formatrow(row, startcol='<td>', endcol='</td>'):
     return "<tr>"+"".join(startcol + entry + endcol for entry in row)+"</tr>"
-
 table = [
     '<table style="width:100%">',
     formatrow(LASTSEENFIELDS, startcol='<th>', endcol='</th>')
 ]
-
-with open(SETTINGS_FILE, 'r') as f:
-    for i, user in enumerate(settings['recents']):
-        if not isinstance(user, dict):
-            del settings['recents'][i]
-        entries = [user.get(field, DEFAULT) for field in LASTSEENFIELDS]
-        table.append(formatrow(entries))
-
+for i, user in enumerate(settings['recents']):
+    if not isinstance(user, dict):
+        del settings['recents'][i]
+    entries = [user.get(field, DEFAULT) for field in LASTSEENFIELDS]
+    table.append(formatrow(entries))
 table.append("</table>")
-
-htmlFormat2 = """
+html += '\n'.join(table) 
+html += """
                 </div>
             </div>
         </div>
     </body>
 </html> """
 
-form = cgi.FieldStorage()
-
-
-
-with open(SETTINGS_FILE, "w") as f:
-    for field in GLOBALFIELDS:
-        settings['global'][field] = form.getfirst(field, settings.get(field, ''))
-    json.dump(settings, f, separators=(',', ': '), indent=2)
-
-print(htmlFormat1 + '\n'.join(table) + htmlFormat2) # see embedded %s ^ above
+print(html)
