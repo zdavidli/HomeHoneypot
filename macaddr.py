@@ -2,6 +2,7 @@ from __future__ import print_function
 import string
 import sys
 import json
+import urllib2
 
 
 CACHE_FILE = 'macs.cache'
@@ -14,12 +15,8 @@ def identify(macaddr):
     if len(macaddr) != 12:
         raise ValueError("%s is not a valid mac address" % macaddr)
 
-    with open(CACHE_FILE, 'a+') as f:
-        f.seek(0)
-        for line in f.readlines():
-            mac, desc = line.split(' ')
-            if macaddr == mac.lower():
-                return desc
+        if macaddr in CACHE:
+            return CACHE[macaddr]
         try:
             with urllib2.urlopen(LOOKUP_URL%macaddr) as u:
                 desc = u.readline()

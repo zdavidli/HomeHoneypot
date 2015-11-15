@@ -12,7 +12,7 @@ class Sniffer(threading.Thread):
         self.__queue = queue
         sp.Popen(['hostapd', '/etc/hostapd/hostapd.conf'])
 
-    def run(self, queue):
+    def run(self):
         def record(packet, ignore = set()):
-            queue.put(("WiFi", packet.src, time.time()))
+            self.__queue.put(("WiFi", packet.src, time.time()))
         sniff(prn=record)
