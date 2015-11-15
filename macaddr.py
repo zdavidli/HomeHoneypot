@@ -36,4 +36,4 @@ def init_cache():
 
 def save_cache():
     with open(CACHE_FILE, 'w') as f:
-        json.dump(CACHE, f)
+        json.dump(CACHE, f) 

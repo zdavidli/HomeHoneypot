@@ -12,6 +12,6 @@ class Sniffer(threading.Thread):
         # init stuff here
 
     def run(self, queue):
-        def p(packet, ignore = set()):
+        def record(packet, ignore = set()):
             queue.put(("WiFi", packet.src))
-        sniff(prn=p)
+        sniff(prn=record)

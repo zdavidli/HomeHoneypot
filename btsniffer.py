@@ -1,6 +1,7 @@
 import time
 import pcap
 import struct
+import bt
 
 import threading
 import subprocess as sp
@@ -10,33 +11,31 @@ from scapy.all import *
 def parse(tup):
     time, data = tup
 
+# class BtPacket(object):
+
+#     @classmethod
+#     def is_valid(cls, tup):
+#         return len(tup[1]) == 15+8
 
 
-class BtPacket(object):
+#     def __init__(tup):
+#         t, data = tup
+#         rssi = data[-1]
+#         if rssi not in {0, 4}:
+#             self.rssi = rssi-0x100 if rssi & 0x80 else rssi
+#         else:
+#             self.rssi = None
+#         self.time = t
+#         if len(data) == 18+8:
+#             rawaddr = data[8+4:8+4+6]
+#         else:
 
-    @classmethod
-    def is_valid(cls, tup):
-        return len(tup[1]) == 15+8
-
-
-    def __init__(tup):
-        t, data = tup
-        rssi = data[-1]
-        if rssi not in {0, 4}:
-            self.rssi = rssi-0x100 if rssi & 0x80 else rssi
-        else:
-            self.rssi = None
-        self.time = t
-        if len(data) == 18+8:
-            rawaddr = data[8+4:8+4+6]
-        else:
             
 class Sniffer(threading.Thread):
     def __init(self, *args, **kwargs):
         threading.Thread.__init__(self, *args, **kwargs)
-        self.sp.Popen(['bluetoothctl'])
 
-    def run(self, queue)
-        def p(packet, ignore = set()):
-            queue.put(("Bluetooth", packet.src))
-        sniff(prn = p)
+    def run(self, queue):
+        def record(packet, ignore = set()):
+            queue.put(("Bluetooth", packet.src, time.time()))
+        sniff(prn=record)

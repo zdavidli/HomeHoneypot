@@ -6,7 +6,7 @@ import BaseHTTPServer
 import CGIHTTPServer
 
 class HoneyServer(threading.Thread):
-    def run():
+    def run(self):
         import cgitb; cgitb.enable()  ## This line enables CGI error reporting
 
         server = BaseHTTPServer.HTTPServer
