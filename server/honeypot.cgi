@@ -6,8 +6,9 @@ import json
 
 print("Content-Type: text/html\n\n")  # html markup follows
 
+SETTINGS_FILE = "config.json"
 
-htmlFormat = """
+htmlFormat1 = """
 <html>
 	<head>
 		<title>HoneyPot</title>
@@ -92,7 +93,7 @@ htmlFormat = """
 						</div>
 					</center>
 					<div style="height:30px; "></div>
-					<form action="http://localhost:8000" method="post">
+					<form action="honeypot.cgi" method="post">
 						 <label>First Name</label>
 						 <div style="height:10px; "></div>
 						 <input type="text" name="first" style="font-size:14pt;height:35px;width:600px;"><br />
@@ -117,20 +118,33 @@ htmlFormat = """
 						<div style="color:#000000">
 							<h3>Devices Already Added</h3>
 						</div>
-					</center>
-					<table style="width:100%">
-						 <tr>
-						    <th>Name</th>
-						    <th>MAC Address</th> 
-						    <th>Time Added</th>
-						 </tr>
-						 <tr>
-						    <td>Emily Smith</td>
-						    <td>1.234.56.7.8</td> 
-						    <td>3:14:47</td>
-						 </tr>
-					</table>
-				</div>
+					</center>"""
+                    
+recency_table = """
+    <table style="width:100%">
+         <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+         </tr>"""
+            #<th>Time Added</th>
+            #<th>MAC Address</th> 
+data = {}
+with open(SETTINGS_FILE, 'r') as f:
+    data = json.load(f)
+    for user in data:
+        recency_table += "<tr>\n<td>" + data["first"] + data["last"] \
+                   + "</td>\n<td>" + data["phone"] + "</td>\n<td>" \
+                   + data["email"] + "</td>\n<td>"
+                       #+ data["time"] + "</td>\n</tr>"
+                       #+ data["macaddr"] + "</td>\n<td>" \
+ #        print("<td> line.
+ #           <td>Emily Smith</td>
+ #           <td>1.234.56.7.8</td> 
+ #           <td>3:14:47</td>"""
+htmlFormat2 = """
+                    </table>
+                </div>
 			</div>
 		</div>
 	</body>
@@ -139,7 +153,7 @@ htmlFormat = """
 form = cgi.FieldStorage()
 
 fields = "first last phone email".split()
-SETTINGS_FILE = "config.json"
+
 
 try:
     with open(SETTINGS_FILE) as f:
@@ -147,9 +161,9 @@ try:
 except IOError:
     current = {}
 
-with open(SETTINGS_FILE, "w") as f:
+with open(SETTINGS_FILE, "a") as f:
     for field in fields:
         current[field] = form.getfirst(field, current.get(field, ''))
     json.dump(current, f)
 
-print(htmlFormat) # see embedded %s ^ above
+print(htmlFormat1 + recency_table + htmlFormat2) # see embedded %s ^ above
