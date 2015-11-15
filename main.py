@@ -10,6 +10,7 @@ import push
 from collections import OrderedDict
 
 MAX_QUEUE = 1<<14
+MAX_REMEMBER = 512
 
 LOGFILE = 'e.log' # lol
 
@@ -39,7 +40,7 @@ def main():
                 del seen[mac]
             else:
                 push.note(interface, name, mac, notes)
-            if len(seen) >= 100:
+            if len(seen) >= MAX_REMEMBER:
                 seen.popitem()
             seen[mac] = when
     finally:
