@@ -29,7 +29,7 @@ def main():
         while True:
             interface, mac, when = events.get()
             name = '"%s"'%macaddr.identify(mac)
-            notes = "Occurred %s" % time.asctime(when)
+            notes = "Occurred %s" % time.asctime(time.ctime(when))
             push.note(interface, name, mac, notes)
     finally:
         macaddr.save_cache()
