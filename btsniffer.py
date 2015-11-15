@@ -1,15 +1,14 @@
 import time
 import pcap
 import struct
-import bt
 
 import threading
 import subprocess as sp
 import Queue
 from scapy.all import *
 
-def parse(tup):
-    time, data = tup
+# def parse(tup):
+#     time, data = tup
 
 # class BtPacket(object):
 
@@ -32,7 +31,7 @@ def parse(tup):
 
             
 class Sniffer(threading.Thread):
-    def __init(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         threading.Thread.__init__(self, *args, **kwargs)
 
     def run(self, queue):

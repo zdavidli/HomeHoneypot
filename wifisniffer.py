@@ -4,6 +4,7 @@ import threading
 from scapy.all import *
 import subprocess as sp
 import Queue
+import time
 
 class Sniffer(threading.Thread):
     def __init__(self, *args, **kwargs):
@@ -13,5 +14,5 @@ class Sniffer(threading.Thread):
 
     def run(self, queue):
         def record(packet, ignore = set()):
-            queue.put(("WiFi", packet.src))
+            queue.put(("WiFi", packet.src, time.time()))
         sniff(prn=record)

@@ -5,6 +5,7 @@ import btsniffer
 import server.server as web
 import macaddr
 import Queue
+import time
 
 MAX_QUEUE = 1<<14
 
@@ -26,8 +27,10 @@ def main():
 
     try:
         while True:
-            interface, mac = events.get()
-            print macaddr.identify(mac)
+            interface, mac, when = events.get()
+            name = '"%s"'%macaddr.identify(mac)
+            notes = "Occurred %s" % time.asctime(when)
+            push.note(interface, name, mac, notes)
     finally:
         macaddr.save_cache()
 
