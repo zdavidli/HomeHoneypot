@@ -1,0 +1,12 @@
+HOME HONEYPOT - pia - LETS YOU KNOW WHAT'S GOING ON AROUND YOU
+Raspi splits network into two parts - secure and unsecure
+Lets you observe how others interact with your network
+    People will connect to your unsecure wifi
+    MAC Address, time, signal strength (distance) logged
+    Sends push(bullet) notif 
+Simple interface for laymen-- there has been preference
+for simplicity over security -e.g. WPS (hackable by 12 yr olds on internet)
+
+knowledge is power
+HOME HONEYPOT gives you knowledge of devices in your 
+    surroundings 
