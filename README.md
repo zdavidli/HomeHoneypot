@@ -1,4 +1,4 @@
-# ${1:Project Name}
+# Home Honeypot
 
 Created for HackPrinceton Fall 2015
 
