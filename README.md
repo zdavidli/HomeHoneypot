@@ -2,14 +2,14 @@
 
 Created for HackPrinceton Fall 2015
 
-Team composed of:
-    David Li        (dli44@jhu.edu)
-    Jacob Van Buren (jvanbure@andrew.cmu.edu)
-    David Yang      (dy46@duke.edu)
+Team composed of
+1. David Li        (dli44@jhu.edu)
+2. Jacob Van Buren (jvanbure@andrew.cmu.edu)
+3. David Yang      (dy46@duke.edu)
 
-DevPost: http://devpost.com/software/home-honeypot
+DevPost link: http://devpost.com/software/home-honeypot
 
-Made top 8 hardware hacks at HackPrinceton, won Private Internet Access Second Place Privacy Hack
+Top 8 hardware hacks at HackPrinceton, won Private Internet Access Second Place Privacy Hack
 
 
 ## Inspiration
